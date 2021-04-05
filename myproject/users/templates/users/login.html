@@ -1,0 +1,22 @@
+{% extends "website/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section register col-sm col-lg-8">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Kullanıcı Girişi</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group pt-3">
+            <button class="btn btn-outline-success" type="submit">Giriş Yap</button>
+        </div>
+    </form>
+    <div class="pt-3">
+        <small class="text-muted">Hesabın yok mu?
+            <a href="{% url 'register' %}" class="ml-2 btn-sm btn-outline-secondary">Kayıt Ol</a>
+        </small>
+    </div>
+    <a class="mt-2 btn btn-outline-secondary" href="{% url 'forgot-password' %}">Şifremi Unuttum</a>
+</div>
+{% endblock content %}

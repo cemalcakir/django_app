@@ -1,0 +1,72 @@
+/* body */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration-style: none;
+}
+
+
+main {
+    min-height: 120vh;
+}
+
+/* header */
+
+header {
+    box-shadow: 1px 1px 5px;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    background-color: #eeeeee;
+}
+
+
+.sidebar {
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+/* home */
+
+.link-unstyled,
+.link-unstyled:link,
+.link-unstyled:hover {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+/* profile */
+
+.account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+
+/* posts */
+
+.article-img {
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+}
+
+/* user list */
+
+.user-img {
+    height: 225px;
+    width: 225px;
+    padding: 20px;
+}

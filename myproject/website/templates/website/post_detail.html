@@ -1,0 +1,60 @@
+{% extends "website/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-sm col-lg-8">
+    <h2 class="article-title py-3">{{ object.title }}</h2>
+    <div class="media border p-3">
+        <div class="media-body">
+            <p class="article-content">{{ object.content }}</p>
+            {% for tag in object.tags.all %}
+            <a href="{% url 'post-by-tag' tag %}" class="badge bg-primary mb-3">{{ tag }}</a>
+            {% endfor %}
+            <div class="article-metadata">
+                <img src="{{ object.author.profile.image.url }}" alt="user image" class="rounded-circle article-img">
+                <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
+                <small class="text-muted">{{ object.date_posted|date:"d F Y H:i" }}</small>
+                {% if object.author == user %}
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.slug %}">Güncelle</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.slug %}">Sil</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if comments.count %}
+    <h3 class="pt-5">Bu konuya verilmiş {{ comments.count }} yanıt var</h3>
+    {% else %}
+    <h3 class="pt-5">Henüz bu konuya verilmiş bir yanıt yok</h3>
+    {% endif %}
+
+    {% for comment in comments %}
+    <div class="media border p-3 mt-1">
+        <div class="media-body">
+            <p class="article-content">{{ comment.body }}</p>
+        </div>
+        <br>
+        <div>
+            <img src="{{ comment.author.profile.image.url }}" alt="user image" class="rounded-circle article-img">
+            <a class="mr-2" href="{% url 'user-posts' comment.author.username %}">{{ comment.author }}</a>
+            <small class="text-muted">{{ comment.date_posted|date:"d F Y H:i" }}</small>
+            {% if comment.author == user %}
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'comment-update' comment.id %}">Güncelle</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'comment-delete' comment.id %}">Sil</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+    <form method="POST" class="pt-4">
+        {% csrf_token %}
+        <div class="messagebox">
+            {{ form|crispy }}
+            <button class="btn btn-outline-success mt-2" type="submit">
+                Gönder
+            </button>
+        </div>
+    </form>
+    {% endif %}
+</div>
+
+{% endblock content %}

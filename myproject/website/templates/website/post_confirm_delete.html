@@ -1,0 +1,13 @@
+{% extends "website/base.html" %}
+{% block content %}
+<div class="content-section col-sm col-lg-8">
+    <form method="POST" class="m-3">
+        {% csrf_token %}
+        <h2>"{{ post.title }}" başlığındaki sorunuzu silmek istediğinize emin misiniz?</h2>
+        <div class="form-group">
+            <button class="btn btn-outline-danger" type="submit">Evet</button>
+            <a class="btn btn-outline-secondary" href="{% url 'post-detail' object.slug %}">Kalsın</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}
